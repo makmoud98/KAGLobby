@@ -133,7 +133,7 @@ void drawPlayerCard(CPlayer@ player, Vec2f pos)
     if(player !is null && getRules().get("backend_players", @backend_players)){
         for(int i = 0; i < backend_players.length; i++){
             BackendPlayer@ p = backend_players[i];
-            if(p.username == hoveredPlayer.getUsername()){
+            if(p.username == player.getUsername()){
                 GUI::SetFont("menu");
                 f32 stepheight = 8;
                 Vec2f atopleft = pos;
