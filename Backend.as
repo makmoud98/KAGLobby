@@ -110,11 +110,11 @@ void onCommand(CRules@ this, u8 cmd, CBitStream@ params){
 		}
 		server.connected = true;
 		server.waiting = false;
-		server.type = params.read_u8();
 		server.hostname = params.read_string();
 		server.port = params.read_u16();
 		server.id = params.read_u8();
 		server.ready = params.read_u8();
+		server.type = server.id == 0 ? 0 : 1;
 		this.set("server", @server);
 		print("connected to the backend!!!");
 	}
@@ -142,7 +142,6 @@ void onCommand(CRules@ this, u8 cmd, CBitStream@ params){
 		BackendPlayer p();
 		p.username = params.read_string();
 		p.team = 2;	//2 = auto 0=blue 1=red, will be changed later based on player input
-		p.stats.clear();
 		//rank, wins, losses, kills, deaths, + maybe more idk
 		p.stats.push_back(''+params.read_u32());
 		p.stats.push_back(''+params.read_u32());
@@ -158,6 +157,7 @@ void onCommand(CRules@ this, u8 cmd, CBitStream@ params){
 			print("backend_players is null in get_player_info cmd");
 			return;
 		}
+		//this is to avoid duplicated backend_players
 		bool found = false;
 		for(u8 i = 0; i < backend_players.length; i++)
 		{
