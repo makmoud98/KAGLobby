@@ -1,4 +1,5 @@
 #include "ScoreboardCommon.as";
+#include "BackendCommon.as";
 
 CPlayer@ hoveredPlayer;
 Vec2f hoveredPos;
